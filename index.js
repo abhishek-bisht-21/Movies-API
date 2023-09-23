@@ -1,4 +1,6 @@
+const { application } = require("express");
 const express = require("express");
+const bodyParser = require('body-parser');
 const PORT = 8080
 const app = express();
 
@@ -30,6 +32,7 @@ const logger = (req, res, next) => {
 }
 
 app.use(logger);
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
 	res.send("Hello World!");
@@ -44,3 +47,30 @@ app.get("/api/movies/:id", (req, res) => {
 	res.send(movies[parseInt(id)-1]);
 });
 
+app.post("/api/movies", (req,res) => {
+	const movie = req.body
+	movie.id = movies.length + 1;
+	movies.push(movie);
+	console.log(movies);
+	res.send({success: true});
+});
+
+app.put("/api/movies/:id", (req,res) => {
+	const id  = req.params.id;
+	const body = req.body;
+	body.id = id;
+	movies[id-1] = body;
+	console.log(movies);
+	res.send({success: true});
+});
+
+
+app.delete("/api/movies/:id", (req,res) => {
+	const id  = req.params.id;
+	const body = req.body;
+	body.id = id;
+	movies.splice()
+	movies[id-1] = body;
+	console.log(movies);
+	res.send({success: true});
+});
