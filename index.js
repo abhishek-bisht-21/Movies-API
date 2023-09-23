@@ -24,16 +24,23 @@ app.listen(PORT, () => {
 	console.log(`Server is running on ${PORT}`);
 });
 
+const logger = (req, res, next) => {
+	console.log(`Request received at ${new Date()} on Path ${req.url}`);
+	next();
+}
+
+app.use(logger);
+
 app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
 app.get("/api/movies", (req, res) => {
-	console.log({
-		url: req.url,
-		header: req.headers,
-		body: req.body
-	})
 	res.send(movies);
+});
+
+app.get("/api/movies/:id", (req, res) => {
+	const id = req.params.id;
+	res.send(movies[parseInt(id)-1]);
 });
 
