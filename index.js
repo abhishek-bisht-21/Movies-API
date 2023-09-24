@@ -1,7 +1,11 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const { application } = require("express");
 const express = require("express");
 const bodyParser = require('body-parser');
-const PORT = 8080
+
+const PORT = process.env.PORT;
+console.log(PORT);
 const app = express();
 
 const movies = [
