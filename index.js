@@ -65,12 +65,8 @@ app.put("/api/movies/:id", (req,res) => {
 });
 
 
-app.delete("/api/movies/:id", (req,res) => {
-	const id  = req.params.id;
-	const body = req.body;
-	body.id = id;
-	movies.splice()
-	movies[id-1] = body;
-	console.log(movies);
-	res.send({success: true});
+app.delete("/api/movies/:id", (req, res) => {
+  const id = req.params.id;
+  movies.splice(id - 1, 1);
+  res.send({ success: true });
 });
